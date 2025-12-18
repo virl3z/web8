@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     // Ключ для LocalStorage
-    const STORAGE_KEY = 'https://formspree.io/f/meejqlzw';
+    const STORAGE_KEY = 'feedback_form_data';
     
-    // URL для отправки формы (замените на свой Formspree)
-    const FORM_SUBMIT_URL = 'https://formspree.io/f/mpzvvdgb'; // Замените на ваш Formspree email
+    // URL для отправки формы (ВАШ УНИКАЛЬНЫЙ КОД)
+    const FORM_SUBMIT_URL = 'https://formspree.io/f/meejqlzw';
     
     // Инициализация
     function init() {
@@ -43,8 +43,60 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
+        // Обработчик для телефона - только цифры
+        formFields.phone.addEventListener('input', formatPhoneNumber);
+        formFields.phone.addEventListener('keypress', restrictToNumbers);
+        
         // Обработчик кнопки "Назад" в браузере
         window.addEventListener('popstate', handlePopState);
+    }
+    
+    // Функция для ограничения ввода только цифр
+    function restrictToNumbers(event) {
+        const key = event.key;
+        
+        // Разрешаем: цифры 0-9, Backspace, Delete, Tab, стрелки
+        if (!/[\d]/.test(key) && 
+            key !== 'Backspace' && 
+            key !== 'Delete' && 
+            key !== 'Tab' &&
+            key !== 'ArrowLeft' &&
+            key !== 'ArrowRight' &&
+            key !== 'ArrowUp' &&
+            key !== 'ArrowDown') {
+            event.preventDefault();
+        }
+    }
+    
+    // Функция для форматирования номера телефона
+    function formatPhoneNumber() {
+        let value = formFields.phone.value;
+        
+        // Удаляем все нецифровые символы
+        let numbers = value.replace(/\D/g, '');
+        
+        // Ограничиваем длину (максимум 15 цифр)
+        numbers = numbers.substring(0, 15);
+        
+        // Форматируем номер
+        let formatted = '';
+        if (numbers.length > 0) {
+            formatted = '+7 ';
+            if (numbers.length > 1) {
+                formatted += '(' + numbers.substring(1, 4);
+            }
+            if (numbers.length >= 4) {
+                formatted += ') ' + numbers.substring(4, 7);
+            }
+            if (numbers.length >= 7) {
+                formatted += '-' + numbers.substring(7, 9);
+            }
+            if (numbers.length >= 9) {
+                formatted += '-' + numbers.substring(9, 11);
+            }
+        }
+        
+        formFields.phone.value = formatted;
     }
     
     // Открытие формы
@@ -154,6 +206,14 @@ document.addEventListener('DOMContentLoaded', function() {
             errors.push('Введите корректный email адрес');
         }
         
+        // Валидация телефона (если заполнен)
+        if (formFields.phone.value.trim()) {
+            const phoneNumbers = formFields.phone.value.replace(/\D/g, '');
+            if (phoneNumbers.length < 11) {
+                errors.push('Введите корректный номер телефона (минимум 11 цифр)');
+            }
+        }
+        
         if (!formFields.message.value.trim()) {
             errors.push('Сообщение является обязательным полем');
         }
@@ -235,5 +295,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Запуск инициализации
     init();
     checkInitialState();
-
 });
