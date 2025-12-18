@@ -3,71 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор стоимости услуги</title>
+    <title>Форма обратной связи</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="calculator-container">
-        <h1>Калькулятор стоимости услуги</h1>
-        
-        <form id="calculator-form">
-            <!-- Поле для ввода количества -->
-            <div class="form-group">
-                <label for="quantity">Количество:</label>
-                <input type="number" id="quantity" name="quantity" min="1" value="1">
-            </div>
+    <div class="container">
+        <header>
+            <h1>Форма обратной связи</h1>
+            <p class="subtitle">Нажмите кнопку ниже, чтобы открыть форму для связи с нами</p>
+        </header>
 
-            <!-- Выбор типа услуги (радиокнопки) -->
-            <div class="form-group">
-                <label>Тип услуги:</label>
-                <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="service-type" value="basic" checked>
-                        <span>Базовая консультация</span>
-                        <span class="price-info">1500 руб.</span>
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="service-type" value="premium">
-                        <span>Премиум поддержка</span>
-                        <span class="price-info">3000 руб.</span>
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="service-type" value="vip">
-                        <span>VIP обслуживание</span>
-                        <span class="price-info">5000 руб.</span>
-                    </label>
+        <main>
+            <button id="openFormBtn" class="open-form-btn">
+                <i class="fas fa-envelope"></i> Открыть форму обратной связи
+            </button>
+
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-history"></i>
+                    <h3>История браузера</h3>
+                    <p>Используется History API для управления URL</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-database"></i>
+                    <h3>Сохранение данных</h3>
+                    <p>Данные сохраняются в LocalStorage</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-paper-plane"></i>
+                    <h3>Отправка на сервер</h3>
+                    <p>Отправка данных без перезагрузки страницы</p>
                 </div>
             </div>
+        </main>
 
-            <!-- Селект для опций (появляется только для premium) -->
-            <div class="form-group" id="options-container" style="display: none;">
-                <label for="service-option">Опция поддержки:</label>
-                <select id="service-option" name="service-option">
-                    <option value="standard">Стандартная (без доплаты)</option>
-                    <option value="priority">Приоритетная (+20%)</option>
-                    <option value="express">Экспресс (+40%)</option>
-                </select>
-            </div>
-
-            <!-- Чекбокс для свойства (появляется только для vip) -->
-            <div class="form-group" id="property-container" style="display: none;">
-                <label class="checkbox-label">
-                    <input type="checkbox" id="service-property" name="service-property">
-                    <span>Добавить круглосуточную поддержку (+50%)</span>
-                </label>
-            </div>
-
-            <!-- Блок с результатом -->
-            <div class="result-section">
-                <h2>Итоговая стоимость:</h2>
-                <div class="total-price" id="total-price">1500 руб.</div>
-                <div class="price-breakdown" id="price-breakdown">
-                    Базовая консультация × 1 = 1500 руб.
-                </div>
-            </div>
-        </form>
+        <footer>
+            <p>© 2024 Форма обратной связи. Все права защищены.</p>
+        </footer>
     </div>
 
-    <script src="calculator.js"></script>
+    <!-- Попап с формой -->
+    <div id="formPopup" class="popup-overlay">
+        <div class="popup-container">
+            <div class="popup-header">
+                <h2>Форма обратной связи</h2>
+                <button id="closeFormBtn" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="feedbackForm" class="feedback-form">
+                <div class="form-group">
+                    <label for="fullName">
+                        <i class="fas fa-user"></i> ФИО *
+                    </label>
+                    <input type="text" id="fullName" name="fullName" required 
+                           placeholder="Введите ваше полное имя">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Email *
+                    </label>
+                    <input type="email" id="email" name="email" required 
+                           placeholder="example@domain.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">
+                        <i class="fas fa-phone"></i> Телефон
+                    </label>
+                    <input type="tel" id="phone" name="phone" 
+                           placeholder="+7 (999) 123-45-67">
+                </div>
+
+                <div class="form-group">
+                    <label for="organization">
+                        <i class="fas fa-building"></i> Организация
+                    </label>
+                    <input type="text" id="organization" name="organization" 
+                           placeholder="Название вашей организации">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">
+                        <i class="fas fa-comment"></i> Сообщение *
+                    </label>
+                    <textarea id="message" name="message" rows="4" required 
+                              placeholder="Введите ваше сообщение..."></textarea>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="privacyPolicy" name="privacyPolicy" required>
+                    <label for="privacyPolicy">
+                        Я согласен с <a href="#" class="policy-link">политикой обработки персональных данных</a> *
+                    </label>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Отправить
+                    </button>
+                    <button type="button" id="resetFormBtn" class="reset-btn">
+                        <i class="fas fa-redo"></i> Очистить
+                    </button>
+                </div>
+
+                <div id="formMessage" class="form-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <script src="form.js"></script>
 </body>
 </html>
