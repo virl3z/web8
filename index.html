@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор стоимости услуги</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Калькулятор стоимости услуги</h1>
+        
+        <form id="calculator-form">
+            <!-- Поле для ввода количества -->
+            <div class="form-group">
+                <label for="quantity">Количество:</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1">
+            </div>
+
+            <!-- Выбор типа услуги (радиокнопки) -->
+            <div class="form-group">
+                <label>Тип услуги:</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="service-type" value="basic" checked>
+                        <span>Базовая консультация</span>
+                        <span class="price-info">1500 руб.</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="service-type" value="premium">
+                        <span>Премиум поддержка</span>
+                        <span class="price-info">3000 руб.</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="service-type" value="vip">
+                        <span>VIP обслуживание</span>
+                        <span class="price-info">5000 руб.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Селект для опций (появляется только для premium) -->
+            <div class="form-group" id="options-container" style="display: none;">
+                <label for="service-option">Опция поддержки:</label>
+                <select id="service-option" name="service-option">
+                    <option value="standard">Стандартная (без доплаты)</option>
+                    <option value="priority">Приоритетная (+20%)</option>
+                    <option value="express">Экспресс (+40%)</option>
+                </select>
+            </div>
+
+            <!-- Чекбокс для свойства (появляется только для vip) -->
+            <div class="form-group" id="property-container" style="display: none;">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="service-property" name="service-property">
+                    <span>Добавить круглосуточную поддержку (+50%)</span>
+                </label>
+            </div>
+
+            <!-- Блок с результатом -->
+            <div class="result-section">
+                <h2>Итоговая стоимость:</h2>
+                <div class="total-price" id="total-price">1500 руб.</div>
+                <div class="price-breakdown" id="price-breakdown">
+                    Базовая консультация × 1 = 1500 руб.
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="calculator.js"></script>
+</body>
+</html>
