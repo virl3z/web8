@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     // Ключ для LocalStorage
-    const STORAGE_KEY = 'feedback_form_data';
+    const STORAGE_KEY = 'https://formspree.io/f/meejqlzw';
     
     // URL для отправки формы (замените на свой Formspree)
     const FORM_SUBMIT_URL = 'https://formspree.io/f/mpzvvdgb'; // Замените на ваш Formspree email
@@ -235,4 +235,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // Запуск инициализации
     init();
     checkInitialState();
+
 });
